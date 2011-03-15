@@ -225,6 +225,3 @@ end
 ::ActiveRecord::Base.send(:include, ::ActsAsArchive::Base)
 ::ActiveRecord::ConnectionAdapters::DatabaseStatements.send(:include, ::ActsAsArchive::DatabaseStatements)
 
-require "acts_as_archive/adapters/rails#{Rails.version[0..0]}" if defined?(Rails)
-require "acts_as_archive/adapters/sinatra" if defined?(Sinatra)
-

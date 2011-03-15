@@ -5,9 +5,18 @@ Don't delete your records, move them to a different table.
 
 Like <code>acts\_as\_paranoid</code>, but doesn't mess with your SQL queries.
 
+This is a Fork !
+----------------
+In order to fix [issue#21](https://github.com/winton/acts_as_archive/issues#issue/21) and any loading order issue.
+Loading of <code>::Archive</code> classes is not automatic anymore.
+You have to past one of the lines below (or all of them if you don't now wich framework you are using ?!) in <code>environment.rb</code> or anywhere proceed after all gems are loaded.
+<pre>
+require "acts_as_archive/adapters/rails#{Rails.version[0..0]}" if defined?(Rails)
+require "acts_as_archive/adapters/sinatra" if defined?(Sinatra)
+</pre>
+
 Install
 -------
-
 <pre>
 gem install acts_as_archive
 </pre>
@@ -128,3 +137,4 @@ Running specs
 -------------
 
 There is a [wiki entry](https://github.com/winton/acts_as_archive/wiki/Running-Specs) that describes the development setup in-depth.
+
