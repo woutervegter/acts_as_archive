@@ -7,3 +7,4 @@ spec/fixtures/builds
 spec/fixtures/log
 tmp
 vendor
+/.idea/
