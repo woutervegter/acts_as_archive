@@ -127,10 +127,25 @@ class ActsAsArchive
           klass.acts_as_archive(:class => self, :archive => true)
 
           self.reflect_on_all_associations.each do |association|
-            opts = association.options.dup
-            opts[:class_name] = "::#{association.class_name}::Archive"
-            opts[:foreign_key] = association.primary_key_name
-            klass.send association.macro, association.name, opts
+            if (association.options[:dependent] && !association.options[:polymorphic] && !ActsAsArchive.find(association.klass).empty?) || options["preserve_associations"]
+              opts = association.options.dup
+              opts[:class_name] = "::#{association.class_name}::Archive"
+              opts[:foreign_key] = association.primary_key_name
+              klass.send association.macro, association.name, opts
+            end
+          end
+
+          parent_klass = self
+          if options["before_move"]
+            klass.send :before_move, parent_klass.name.to_sym do
+              parent_klass.send options["before_move"], self
+            end
+          end
+
+          if options["after_move"]
+            klass.send :after_move, parent_klass.name.to_sym do
+              parent_klass.send options["after_move"], self
+            end
           end
 
           unless options[:migrate] == false
