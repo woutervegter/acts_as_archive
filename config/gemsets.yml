@@ -1,6 +1,6 @@
 acts_as_archive:
-  rake: ">=0.8.7"
-  rspec: "~>1.0"
+  rake: >=0.8.7
+  rspec: ~>1.0
   default:
     active_wrapper-solo: =0.4.4
     also_migrate: =0.3.5
